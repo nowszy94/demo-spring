@@ -1,9 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.service.CalcService;
-import com.example.demo.service.HomeService;
-import com.example.demo.service.RandomGeneratorService;
-import com.example.demo.service.StringGeneratorService;
+import com.example.demo.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,10 +32,14 @@ public class HomeController {
     @Autowired
     private List<StringGeneratorService> list;
 
+    @Autowired
+    private SomeService someService;
+
     @RequestMapping(path = "/home")
     public ModelAndView home() {
         ModelAndView modelAndView = new ModelAndView("home");
         this.homeService.doSomething();
+        someService.action();
         return modelAndView;
     }
 
@@ -47,7 +48,7 @@ public class HomeController {
         int first = randomGeneratorService.generateRandom();
         int second = randomGeneratorService.generateRandom();
         int result = calcService.add(first, second);
-
+        someService.action();
         System.out.println(result);
         return new ModelAndView("home");
     }
